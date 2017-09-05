@@ -7,71 +7,146 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <title>ランチメの野望</title>
+        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+        <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
+        <script type="text/javascript" src="./js/dbAccess.js"></script>
+        <script type="text/javascript" src="./js/store.js"></script>
         <style>
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
+              #map {
+                height: 100%;
+              }
+              /* Optional: Makes the sample page fill the window. */
+              html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+              }
+              .controls {
+                margin-top: 10px;
+                border: 1px solid transparent;
+                border-radius: 2px 0 0 2px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 32px;
+                outline: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+              }
 
-      #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-      }
+              #pac-input {
+                background-color: #fff;
+                font-family: Roboto;
+                font-size: 15px;
+                font-weight: 300;
+                margin-left: 12px;
+                padding: 0 11px 0 13px;
+                text-overflow: ellipsis;
+                width: 300px;
+              }
 
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
+              #pac-input:focus {
+                border-color: #4d90fe;
+              }
 
-      .pac-container {
-        font-family: Roboto;
-      }
+              .pac-container {
+                font-family: Roboto;
+              }
 
-      #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-      }
+              #type-selector {
+                color: #fff;
+                background-color: #4d90fe;
+                padding: 5px 11px 0px 11px;
+              }
 
-      #type-selector label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
-      #target {
-        width: 345px;
-      }
+              #type-selector label {
+                font-family: Roboto;
+                font-size: 13px;
+                font-weight: 300;
+              }
+              #target {
+                width: 345px;
+              }
         </style>
     </head>
     <body>
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        <div id="map">
-            map
-        </div>
+
+        <ons-page id="page1">
+              <div class="toolbar">
+                <div class="toolbar__left">
+                  <span class="toolbar-button" id="sideMenu">
+                    <i class="ion-navicon" style="font-size:32px; vertical-align:-6px;"></i>
+                  </span>
+                </div>
+                <div class="toolbar__center">
+                      ランチの野望
+                </div>
+                <div class="toolbar__right">
+                  <span class="toolbar-button">チーム</span>
+                </div>
+              </div> 
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+              <div id="map">
+                  map
+              </div>
+
+
+
+          <ons-splitter>
+          <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+            <ons-page>
+              <ons-list>
+                <ons-list-item onclick="fn.load('home.html')" tappable>
+                  Home
+                </ons-list-item>
+                <ons-list-item onclick="fn.load('settings.html')" tappable>
+                  Settings
+                </ons-list-item>
+                <ons-list-item onclick="fn.load('about.html')" tappable>
+                  About
+                </ons-list-item>
+              </ons-list>
+            </ons-page>
+          </ons-splitter-side>
+        </ons-splitter>
+
+
+        </ons-page>
+
+
+
+
+
+
     </body>
+
+
+
     <script type="text/javascript">
+      
+    document.getElementById("sideMenu").onclick = function(){
+        var menu = document.getElementById('menu');
+        menu.open();
+    }
+
+
+
+    window.fn = {};
+
+window.fn.open = function() {
+  var menu = document.getElementById('menu');
+  menu.open();
+};
+
+window.fn.load = function(page) {
+  var content = document.getElementById('content');
+  var menu = document.getElementById('menu');
+  content.load(page)
+    .then(menu.close.bind(menu));
+};
+
 
 
       function initMap() {
@@ -92,6 +167,13 @@
 
         var markers = [];
 
+        var storage = new Store();
+        storage.getLunchShops(function(shopPlaces){
+            if(shopPlaces['rows'].length > 0){
+              showLunchMarkers(shopPlaces['rows'],map);
+            }
+        });
+
         searchBox.addListener('places_changed',function(){
 
             var places = searchBox.getPlaces();
@@ -99,6 +181,12 @@
             if(places.length == 0){
                 return;
             }
+
+            
+            storage.initialize();
+            // storage.store(places);
+
+
 
             markers.forEach(function(marker){
                 marker.setMap(null);
@@ -120,7 +208,6 @@
 
                 markers.push(new google.maps.Marker({
                     map:map,
-                    icon:icon,
                     title:place.name,
                     position:place.geometry.location
                 }))
@@ -154,6 +241,9 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
+      // end of initMap method
+
+
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -162,8 +252,22 @@
                               'Error: Your browser doesn\'t support geolocation.');
       }
 
+
+      function showLunchMarkers(data,_map){
+        _markers = [];
+        for(var i=0;i<data.length;i++){
+
+            _markers.push(new google.maps.Marker({
+                map:_map,
+                title:data[i]['name'],
+                position:{lat:data[i]['lat'],lng:data[i]['lng']}
+            }))
+        }
+      }
+
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtWJA269Pbs7UbTjChpdWvOz1KkkVgSM&libraries=places&callback=initMap"
-     async defer></script>
+     async defer>
+     </script>
 </html>
