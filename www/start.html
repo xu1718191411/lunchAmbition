@@ -8,8 +8,8 @@
         <ons-list-item ng-click="splitter.load('map.html')" tappable>
           MAP
         </ons-list-item>
-        <ons-list-item ng-click="splitter.load('storeregister.html')" tappable>
-          STOREREGISTER
+        <ons-list-item ng-click="splitter.load('restaurantList.html')" tappable>
+          restaurantList
         </ons-list-item>
         <ons-list-item ng-click="splitter.load('restaurantinfo.html')" tappable>
           restaurantInfo
@@ -24,9 +24,6 @@
         </ons-list-item>
         <ons-list-item ng-click="splitter.load('help.html')" tappable>
           HELP
-        </ons-list-item>
-        <ons-list-item ng-click="splitter.load('test.html')" tappable>
-          TEST
         </ons-list-item>
 
 
@@ -51,17 +48,17 @@
 
 
     <h1>MAPPAGE</h1>
-		<ons-button ng-click="moveToPage('page1')">ボタン</ons-button>
-
-
-
+	
+<!-- 	<ons-button ng-click="moveToPage('page1')">ボタン</ons-button>
     <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
       Swipe right to open the menu!
-    </p>
+    </p> -->
+
+  <ng-include src="'map.html'"></ng-include>
   </ons-page>
 </template>
 
-<template id="storeregister.html">
+<template id="restaurantList.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -70,9 +67,11 @@
         </ons-toolbar-button>
       </div>
       <div class="center">
-        STOREREGISTER
+        restaurantList
       </div>
     </ons-toolbar>
+
+      <ng-include src="'list.html'"></ng-include>
   </ons-page>
 </template>
 
@@ -89,7 +88,7 @@
       </div>
     </ons-toolbar>
 
-        <ng-include src="'restaurantinfo.html'"></ng-include>
+    <ng-include src="'restaurantinfo.html'"></ng-include>
   </ons-page>
 </template>
 
@@ -105,6 +104,10 @@
         MYPAGE
       </div>
     </ons-toolbar>
+
+    <ng-include src="'MyPagge.html'"></ng-include>
+
+
   </ons-page>
 </template>
 
@@ -139,24 +142,6 @@
     </ons-toolbar>
 
         <ng-include src="'help.html'"></ng-include>
-  </ons-page>
-</template>
-
-
-<template id="test.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="left">
-        <ons-toolbar-button ng-click="mySplitter.left.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        TEST
-      </div>
-    </ons-toolbar>
-
-    <ng-include src="'test.html'"></ng-include>
   </ons-page>
 </template>
 
