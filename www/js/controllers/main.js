@@ -8,4 +8,16 @@ module.controller('mainCtrl', function ($scope) {
             pageNavigator.popPage(); //1つ前の画面に戻る
         }
     }
+
 });
+
+
+module
+  .controller('SplitterController', function() {
+    this.load = function(page) {
+      mySplitter.content.load(page)
+        .then(function() {
+          mySplitter.left.close();
+        });
+    };
+  });
