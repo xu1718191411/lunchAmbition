@@ -5,7 +5,7 @@
   <ons-splitter-side side="left" width="220px" collapse swipeable>
     <ons-page>
       <ons-list>
-        <ons-list-item ng-click="splitter.load('map.html')" tappable>
+        <ons-list-item ng-click="splitter.load('maps.html')" tappable>
           MAP
         </ons-list-item>
         <ons-list-item ng-click="splitter.load('restaurantList.html')" tappable>
@@ -22,7 +22,7 @@
         <ons-list-item ng-click="splitter.load('teampage.html')" tappable>
           TEAMPAGE
         </ons-list-item>
-        <ons-list-item ng-click="splitter.load('help.html')" tappable>
+        <ons-list-item ng-click="splitter.load('helps.html')" tappable>
           HELP
         </ons-list-item>
 
@@ -30,10 +30,10 @@
       </ons-list>
     </ons-page>
   </ons-splitter-side>
-  <ons-splitter-content page="map.html"></ons-splitter-content>
+  <ons-splitter-content page="maps.html"></ons-splitter-content>
 </ons-splitter>
 
-<template id="map.html">
+<template id="maps.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -128,7 +128,7 @@
 </template>
 
 
-<template id="help.html">
+<template id="helps.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -141,7 +141,7 @@
       </div>
     </ons-toolbar>
 
-        <ng-include src="'help.html'"></ng-include>
+  <ng-include src="'help.html'"></ng-include>
   </ons-page>
 </template>
 
