@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 文字コードなどの初期設定 -->
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <!-- CSSファイル 読み込み -->
+    <!-- OnsenUI CSSライブラリ 読み込み -->
+    <link rel="stylesheet" type="text/css" href="lib/css/onsenui.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/onsen-css-components.css">
+    <!-- 自作CSS 読み込み -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <!-- JSファイル 読み込み -->
+    <!-- CordovaJS 読み込み -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- AngularJS 読み込み -->
+    <script type="text/javascript" src="lib/js/angular.min.js"></script>
+    <!-- OnsenUI 読み込み -->
+    <script type="text/javascript" src="lib/js/onsenui.min.js"></script>
+    <script type="text/javascript" src="lib/js/angular-onsenui.min.js"></script>
+    <!-- JQuery 読み込み -->
+    <script type="text/javascript" src="lib/js/jquery.js"></script>
+    <!-- 起動ファイル 読み込み -->
+    <script type="text/javascript" src="js/start.js"></script>
+    <!-- コントローラ 読み込み -->
+    <script type="text/javascript" src="js/controllers/main.js"></script>
+
+    <title>ヘルプページ</title>
+</head>
+<body>
+
+<div class="container">
+    <div ng-controller="mainCtrl">
+        <!-- この部分をカスタマイズしてアプリを作成していきます -->
+        <h1>これはヘルプページです。</h1>
+        <ons-navigator var="pageNavigator" page="start.html">
+        </ons-navigator>
+    </div>
+</div>
+</body>
+</html>
