@@ -11,8 +11,8 @@
         <ons-list-item ng-click="splitter.load('storeregister.html')" tappable>
           STOREREGISTER
         </ons-list-item>
-        <ons-list-item ng-click="splitter.load('storelist.html')" tappable>
-          STORELIST
+        <ons-list-item ng-click="splitter.load('restaurantinfo.html')" tappable>
+          restaurantInfo
         </ons-list-item>
 
 
@@ -76,7 +76,7 @@
   </ons-page>
 </template>
 
-<template id="storelist.html">
+<template id="restaurantinfo.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -85,9 +85,11 @@
         </ons-toolbar-button>
       </div>
       <div class="center">
-        STORELIST
+        restaurantinfo
       </div>
     </ons-toolbar>
+
+        <ng-include src="'restaurantinfo.html'"></ng-include>
   </ons-page>
 </template>
 
@@ -135,6 +137,8 @@
         HELP
       </div>
     </ons-toolbar>
+
+        <ng-include src="'help.html'"></ng-include>
   </ons-page>
 </template>
 
