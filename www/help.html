@@ -1,1 +1,28 @@
 <h1>これはヘルプページです。</h1>
+
+
+
+
+
+
+ curl -X POST \
+--data-binary @'audio/hello (16bit PCM).wav' \
+--header 'Content-Type: audio/l16; rate=16000;' \
+'https://www.google.com/speech-api/v2/recognize?output=json&lang=ja-JP&key=AIzaSyBg9RSLIFMzV7WuwI1I3Kopl-x3wIMCWQ4'
+
+
+curl -X POST \
+--data-binary @'audio/hello (16bit PCM).wav' \
+--header 'Content-Type: audio/l16; rate=16000;' \
+'https://speech.googleapis.com/v1/speech:recognize?output=json&lang=ja-JP&key=AIzaSyBg9RSLIFMzV7WuwI1I3Kopl-x3wIMCWQ4'
+
+
+
+
+
+clientID
+454293519640-4738dl38c4toq1a2q03dl96juiotfoo9.apps.googleusercontent.com
+secret
+EjUsikYQIhzF0c-CkO22A1fT
+key
+AIzaSyBg9RSLIFMzV7WuwI1I3Kopl-x3wIMCWQ4

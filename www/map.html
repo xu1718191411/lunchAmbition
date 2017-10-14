@@ -1,9 +1,8 @@
 
-<ons-navigator title="Navigator" var="myNavigator">
-        <ons-page ng-controller="GoogleMapController">
-            <div id="map">
-                    {{name}}
-            </div>
-        </ons-page>
-</ons-navigator>
-        
+<div ng-controller="MapController">
+        {{name}}
+<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+
+    
+</ui-gmap-google-map>
+</div>

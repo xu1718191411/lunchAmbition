@@ -1,4 +1,4 @@
-var module = angular.module('app', ['onsen']);
+var module = angular.module('app', ['onsen','uiGmapgoogle-maps']);
 angular.element(document).ready(function () {
     if (window.cordova) {
         document.addEventListener('deviceready', function () {
@@ -12,10 +12,26 @@ angular.element(document).ready(function () {
 });
 
 
+// module.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
+//     uiGmapGoogleMapApiProvider.configure({
+//         key: 'AIzaSyAOvoVMLV8MsHdpyCCriNbY4Jzmeu2utCE',
+//         v: '3.17',
+//         libraries: 'weather,geometry,visualization'
+//     });
+// }]);
+module.config(
+    ['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
+        GoogleMapApiProviders.configure({
+            china: true
+        });
+    }]
+);
+      
 
-function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 14
-    })
-}
+// module.config(
+//     ['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
+//         GoogleMapApiProviders.configure({
+//             china: true
+//         });
+//     }]
+// );
