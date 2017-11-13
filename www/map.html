@@ -2,30 +2,9 @@
 
 <p>行きたい場所だをここに!</p>
 
-  Auto Complete Type:
-  <select ng-model="vm.types">
-    <option value="['geocode']">Geodode</option>
-    <option value="['establishment']">Establishment</option>
-    <option value="['address']">Address</option>
-  </select><br/>
-
-  Enter an address: <br/>
-  <input places-auto-complete size=80
-    ng-model="vm.address"
-    component-restrictions="{country:'jp'}"
-    types="{{types}}"
-    on-place-changed="vm.placeChanged()" /> <br/>
-  <div ng-show="vm.place">
-    Address = {{vm.place.formatted_address}} <br/>
-    Location: {{vm.place.geometry.location}}<br/>
-  </div>
-  address : {{vm.address}}
-
-
-  <ng-map center="41,-87" zoom="3"></ng-map>
-
-
-
+<input ng-model="vm.address" >
+<button ng-click="vm.placeChanged()">検索する</button>
+<ng-map center="35.170039, 136.900813" zoom="13"></ng-map>
 </div>
 
 
