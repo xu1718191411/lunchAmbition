@@ -11,9 +11,14 @@
     <custom-marker ng-repeat="p in positions track by $index"
       id="custom-marker-{{$index}}"
       position="{{p.pos}}">
-      <div>
-        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
-      </div>
+          <div>
+            <img width="64" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Donald_Trump_August_19%2C_2015_%28cropped%29.jpg/220px-Donald_Trump_August_19%2C_2015_%28cropped%29.jpg" align="left" /> Hi, How Are You? <br/>
+            My Name is Trump, and people call me as Mr. President.<br/>
+            We live in this house.<br/>
+            <br/>
+            <img width="300" src="http://cdn.cstatic.net/images/gridfs/53b42fd3f92ea17d970280b4/Screen%20Shot%202014-07-02%20at%2012.07.54%20PM.png" />
+            <br/>
+            If you want to visit us, please click <span ng-click="saveStore(p)" style="pointer:cursor">here</span>
     </custom-marker>
 
 </ng-map>

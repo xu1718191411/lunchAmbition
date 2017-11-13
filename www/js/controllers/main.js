@@ -1,3 +1,9 @@
+// APIキーの設定
+var APPLICATION_KEY ="13189140e16f068df04ebe4d93ebaf5767d6ec824736f14d2467426f9ce3b7ee";
+var CLIENT_KEY ="a1ea34fca85c56a9cc9176da51ccbdc95b2fb162f80fe421250661a29c754c91";
+
+ncmb = new NCMB(this.APPLICATION_KEY, this.CLIENT_KEY);
+
 module.controller('mainCtrl', function ($scope) {
     // ここにJavaScriptを利用した、動的なアプリの動作を書いていきます
 
@@ -23,7 +29,6 @@ module
   });
 
 
-
   module
     .controller('GoogleMapController', function($scope,NgMap) {
           $scope.name = "syoui"
@@ -40,13 +45,31 @@ module
               searchFromKeyWords($scope.address)
             }
 
+            $scope.saveStore = function(p){
+              $scope.saveShop(p)
+            }
 
             NgMap.getMap().then(function(map) {
               allowCurrentLocation(map)
               vm.map = map;
 
+
+              vm.service = new google.maps.places.PlacesService(map);
+
             });
 
+
+
+            searchNearBy =  function(text){
+
+                vm.service.nearbySearch({
+                  location: pyrmont,
+                  radius: 500,
+                  type: ['store']
+                }, callback);
+
+
+            }
              
              searchFromKeyWords = function(text){
                     $scope.positions =[];
@@ -57,12 +80,10 @@ module
                             vm.map.setCenter(results[0].geometry.location);
                             console.log("results",results);
                             for(var i=0;i<results.length;i++){
-                                    // var marker = new google.maps.Marker({
-                                    //   map: vm.map,
-                                    //   position: results[i].geometry.location
-                                    // });
+                                    var formatted_address = results[i].formatted_address
+                                    var place_id = results[i].place_id
                                     var pos = [results[i].geometry.location.lat(),results[i].geometry.location.lng()]
-                                    var obj = {pos:pos,name:text}
+                                    var obj = {pos:pos,name:text,formatted_address:formatted_address,place_id:place_id}
                                     $scope.positions.push(obj)
                                     console.log($scope.positions)
                             }
@@ -107,6 +128,68 @@ module
                                     'Error: The Geolocation service failed.' :
                                     'Error: Your browser doesn\'t support geolocation.');
             }
+
+
+
+
+
+
+
+        $scope.saveShop = function(p) {
+              //外部サーバー保存
+              //保存先クラスの作成
+              var LunchShopData = ncmb.DataStore("ShopList");    //データテーブル作成
+              //クラスインスタンスを作成
+              var lunchShop = new LunchShopData();
+              var shopname = p.name;
+
+              console.log("確認:" + shopname); 
+
+              var objID = "";
+       
+              if (typeof shopname === "string" && shopname !== "") {
+                  lunchShop.set("ShopName",shopname);  //サーバーに記録
+                  lunchShop.set("PlaceID",p.place_id);
+                  lunchShop.set("FormattedAddress",p.formatted_address);
+                  lunchShop.set("LAT",p.pos[0])
+                  lunchShop.set("LNG",p.pos[1])
+                  lunchShop.save()
+                  .then(function (){
+                      // 保存に成功した場合の処理
+                      console.log("保存に成功しました。:: "+ lunchShop.objectId);
+                      objID = lunchShop.objectId;
+                      setSuccess(shopname,objID);
+                  })
+                  .catch(function (error){
+                      // 保存に失敗した場合の処理
+                      console.log("保存に失敗しました。エラー:" + error); 
+                      setError();
+                  });
+              }
+
+
+              $scope.shopItem = {};
+        }
+
+
+
+          //登録成功時
+          function setSuccess(shopname,object_id){
+              ons.notification.alert({
+                  title:'登録成功',
+                  message: '店舗登録しました'
+              });  
+          
+          }
+
+
+          //登録失敗時
+          function setError(){
+              ons.notification.alert({
+                  title:'登録失敗',
+                  message: '登録失敗しました'
+              }); 
+          }
 
 
 
