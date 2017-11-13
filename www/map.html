@@ -2,9 +2,21 @@
 
 <p>行きたい場所だをここに!</p>
 
-<input ng-model="vm.address" >
-<button ng-click="vm.placeChanged()">検索する</button>
-<ng-map center="35.170039, 136.900813" zoom="13"></ng-map>
+<input ng-model="address" >
+<button ng-click="search()">検索する</button>
+<span ng-model="positions"></span>
+{{name}}
+<ng-map zoom="13">
+
+    <custom-marker ng-repeat="p in positions track by $index"
+      id="custom-marker-{{$index}}"
+      position="{{p.pos}}">
+      <div>
+        position {{p.name}}: {{p.pos[0]}}, {{p.pos[1]}}
+      </div>
+    </custom-marker>
+
+</ng-map>
 </div>
 
 

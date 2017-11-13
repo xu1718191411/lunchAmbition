@@ -30,42 +30,86 @@ module
 
            var vm = this;
             vm.types = "['establishment']";
-            vm.placeChanged = function() {
-              $scope.searchFromKeyWords(vm.address)
-              // vm.place = this.getPlace();
-              // if(vm.place == undefined) return;
-              // if(vm.place.geometry == undefined) return;
-              // console.log('location', vm.place.geometry.location);
-              // vm.map.setCenter(vm.place.geometry.location);
+            $scope.name = "syoui"
+
+            var geocoder = new google.maps.Geocoder();
+            vm.geocoder = geocoder;
+
+
+            $scope.search = function() {
+              searchFromKeyWords($scope.address)
             }
 
+
             NgMap.getMap().then(function(map) {
+              allowCurrentLocation(map)
               vm.map = map;
-              var geocoder = new google.maps.Geocoder();
-              vm.geocoder = geocoder;
 
+            });
 
-              $scope.searchFromKeyWords = function(text){
+             
+             searchFromKeyWords = function(text){
+                    $scope.positions =[];
+                    vm.geocoder.geocode({country: 'JP','address': text}, function(results, status) {
 
-                        vm.geocoder.geocode({'address': text}, function(results, status) {
+                      $scope.$apply(function(){
                           if (status === 'OK') {
                             vm.map.setCenter(results[0].geometry.location);
                             console.log("results",results);
                             for(var i=0;i<results.length;i++){
-                                    var marker = new google.maps.Marker({
-                                      map: vm.map,
-                                      position: results[i].geometry.location
-                                    });
+                                    // var marker = new google.maps.Marker({
+                                    //   map: vm.map,
+                                    //   position: results[i].geometry.location
+                                    // });
+                                    var pos = [results[i].geometry.location.lat(),results[i].geometry.location.lng()]
+                                    var obj = {pos:pos,name:text}
+                                    $scope.positions.push(obj)
+                                    console.log($scope.positions)
                             }
 
                           } else {
                             alert('Geocode was not successful for the following reason: ' + status);
-                          }
-                        });         
+                          } 
+                      })
+
+                    }); 
+
               }
 
 
-        });
+            function allowCurrentLocation(map){
+              var infoWindow = new google.maps.InfoWindow({map: map});
+
+              // Try HTML5 geolocation.
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+
+                  infoWindow.setPosition(pos);
+                  infoWindow.setContent('現在地');
+                  map.setCenter(pos);
+                }, function() {
+                  handleLocationError(true, infoWindow, map.getCenter());
+                });
+              } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+              }
+            }
+
+
+            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+              infoWindow.setPosition(pos);
+              infoWindow.setContent(browserHasGeolocation ?
+                                    'Error: The Geolocation service failed.' :
+                                    'Error: Your browser doesn\'t support geolocation.');
+            }
+
+
+
 
     });
 
