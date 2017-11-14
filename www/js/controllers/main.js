@@ -31,18 +31,20 @@ module
 
   module
     .controller('GoogleMapController', function($scope,NgMap) {
-          $scope.name = "syoui"
-
-           var vm = this;
-            vm.types = "['establishment']";
             $scope.name = "syoui"
 
+            var vm = this;
+            vm.types = "['establishment']";
+            $scope.name = "syoui"
+            $scope.centerPos = {}
+            $scope.positions =[];
             var geocoder = new google.maps.Geocoder();
             vm.geocoder = geocoder;
 
 
             $scope.search = function() {
-              searchFromKeyWords($scope.address)
+              //searchFromKeyWords($scope.address)
+              searchNearBy($scope.address)
             }
 
             $scope.saveStore = function(p){
@@ -52,8 +54,6 @@ module
             NgMap.getMap().then(function(map) {
               allowCurrentLocation(map)
               vm.map = map;
-
-
               vm.service = new google.maps.places.PlacesService(map);
 
             });
@@ -61,18 +61,27 @@ module
 
 
             searchNearBy =  function(text){
-
                 vm.service.nearbySearch({
-                  location: pyrmont,
+                  location: $scope.centerPos,
                   radius: 500,
                   type: ['store']
-                }, callback);
+                }, function(results, status){
+                      $scope.$apply(function(){
+                          if (status === google.maps.places.PlacesServiceStatus.OK) {
+                              for (var i = 0; i < results.length; i++) {
+                                  console.log(results[i])
+                                   var pos = [results[i].geometry.location.lat(),results[i].geometry.location.lng()]
+                                   var obj = {pos:pos,name:results[i].name,formatted_address:results[i].vicinity,place_id:results[i].place_id}
+                                   $scope.positions.push(obj)
+                              }
+                          }
+                      })
 
-
+                });
             }
              
              searchFromKeyWords = function(text){
-                    $scope.positions =[];
+
                     vm.geocoder.geocode({country: 'JP','address': text}, function(results, status) {
 
                       $scope.$apply(function(){
@@ -104,17 +113,25 @@ module
               // Try HTML5 geolocation.
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                  var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                  };
+                  $scope.$apply(function(){
+                        var pos = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude
+                        };
+                        $scope.centerPos = pos;
 
-                  infoWindow.setPosition(pos);
-                  infoWindow.setContent('現在地');
-                  map.setCenter(pos);
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('現在地');
+                        map.setCenter(pos);
+                  })
+
                 }, function() {
-                  handleLocationError(true, infoWindow, map.getCenter());
-                });
+
+                    $scope.$apply(function(){
+                          handleLocationError(true, infoWindow, map.getCenter());
+                    })
+
+              })
               } else {
                 // Browser doesn't support Geolocation
                 handleLocationError(false, infoWindow, map.getCenter());
