@@ -61,6 +61,7 @@ module
 
 
             searchNearBy =  function(text){
+              $scope.positions = []
                 vm.service.nearbySearch({
                   location: $scope.centerPos,
                   radius: 500,
