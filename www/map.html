@@ -1,19 +1,21 @@
-<div ng-controller="MapController">
 
+<div ng-controller="GoogleMapController as vm">
 
- Enter an address: <br/>
-  <input size=80
-    ng-model="vm.address"
-    component-restrictions="{country:'us'}"
-    types="{{types}}"
-    on-place-changed="vm.placeChanged()" /> <br/>
-  <div ng-show="vm.place">
-    Address = {{vm.place.formatted_address}} <br/>
-    Location: {{vm.place.geometry.location}}<br/>
-  </div>
-  address : {{vm.address}}
+<p>行きたい場所だをここに!</p>
 
+<input ng-model="address" >
+<button ng-click="search()">検索する</button>
+<span ng-model="positions"></span>
+{{name}}
+<ng-map zoom="13">
 
-      <ng-map center="41,-87" zoom="3"></ng-map>
+    <marker ng-repeat="p in positions track by $index"
+      id="custom-marker-{{$index}}"
+      position="{{p.pos}}">
+    </marker>
 
+</ng-map>
 </div>
+
+
+        
