@@ -1,8 +1,19 @@
-
 <div ng-controller="MapController">
-        {{name}}
-<ui-gmap-google-map center='map.center' zoom='map.zoom'>
 
-    
-</ui-gmap-google-map>
+
+ Enter an address: <br/>
+  <input size=80
+    ng-model="vm.address"
+    component-restrictions="{country:'us'}"
+    types="{{types}}"
+    on-place-changed="vm.placeChanged()" /> <br/>
+  <div ng-show="vm.place">
+    Address = {{vm.place.formatted_address}} <br/>
+    Location: {{vm.place.geometry.location}}<br/>
+  </div>
+  address : {{vm.address}}
+
+
+      <ng-map center="41,-87" zoom="3"></ng-map>
+
 </div>

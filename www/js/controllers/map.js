@@ -1,5 +1,27 @@
-module.controller('MapController',function($scope){
-    $scope.name = "XU ZHONGWEI"
+//35.690955, 139.701794
 
-    $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-})
+
+module.controller('MapController', function($scope,NgMap) {
+  
+
+    var vm = this;
+  vm.types = "['establishment']";
+  vm.placeChanged = function() {
+    vm.place = this.getPlace();
+    console.log('location', vm.place.geometry.location);
+    vm.map.setCenter(vm.place.geometry.location);
+  }
+
+  
+  NgMap.getMap().then(function(map) {
+        console.log(map.getCenter());
+        console.log('markers', map.markers);
+        console.log('shapes', map.shapes);
+  });
+
+
+
+
+
+});
+

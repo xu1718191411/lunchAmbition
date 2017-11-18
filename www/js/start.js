@@ -1,4 +1,4 @@
-var module = angular.module('app', ['onsen','uiGmapgoogle-maps']);
+var module = angular.module('app', ['onsen','ngMap']);
 angular.element(document).ready(function () {
     if (window.cordova) {
         document.addEventListener('deviceready', function () {
@@ -11,27 +11,3 @@ angular.element(document).ready(function () {
     }
 });
 
-
-// module.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//         key: 'AIzaSyAOvoVMLV8MsHdpyCCriNbY4Jzmeu2utCE',
-//         v: '3.17',
-//         libraries: 'weather,geometry,visualization'
-//     });
-// }]);
-module.config(
-    ['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
-        GoogleMapApiProviders.configure({
-            china: true
-        });
-    }]
-);
-      
-
-// module.config(
-//     ['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
-//         GoogleMapApiProviders.configure({
-//             china: true
-//         });
-//     }]
-// );
