@@ -1,1 +1,29 @@
-<img src="img/teamPage/teamPage.png">
+teamPAGE
+<ons-page id=""  ng-controller="TeamController">
+        <h1>TeamPage</h1>
+    <div>
+    Myteam Point  /  Opponet Point
+    </div> 
+    <ul>
+        <li ng-repeat="dataitem in dataArray" >
+                <div class="box">
+                        <!-- 表 -->
+                        <!-- 順位     -->
+                        <div class ="BoxNumber" > {{dataitem.value}} </div>
+                        <!-- name-->
+                        <div class="BoxName">{{dataitem.title}} </div>
+                        <!-- point -->
+                        <div class="BoxPoint" >{{dataitem.areaname}} </div>
+                        <!-- aicon -->
+                        <div class="BoxIcon" icon>{{name}}</div>
+                    </div>
+
+        </li>
+    
+    
+</ul>    
+            
+        
+    
+   
+</ons-page>
