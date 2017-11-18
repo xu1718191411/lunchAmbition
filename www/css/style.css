@@ -11,28 +11,81 @@ body {
     display: container;
 }
 
- .box{
+ .Teambox{
+    padding: 2.5% 1.5%;
+
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(143, 208, 223);
+    column-width: 1000;
+    display: flex;
+    }
+li{
+    list-style: none;
+}
+
+
+  .redbox{
+    padding: 2.5% 1.5%;
+ 
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(255, 0, 55);
+    display: flex; 
+    }
+
+  .bluebox{
     padding: 2.5% 1.5%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: Green;
+    background-color: rgb(49, 29, 119);
+    color: white;
+ 
+}
+  .greenbox{
+    padding: 2.5% 1.5%;
+ 
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(54, 190, 88);
+    display: flex;
+ 
+ }
+  .yellowbox{
+    padding: 2.5% 1.5%;
+    
+       flex-direction: row;
+       justify-content: space-evenly;
+       background-color:rgb(198, 240, 13);
+       display: flex; 
   }
 
-  .boxNumber{
-      background-color: rgb(0,255,128);
-    font-size: 12pt;
-  }
-
-  .boxName{
-    font-size: 10pt;
+  .whitebox{
+    padding: 2.5% 1.5%;
+    
+       flex-direction: row;
+       justify-content: space-evenly;
+       background-color: rgb(245, 245, 245);
+       display: flex; 
+ 
   }
 
   .boxPoint{
+    padding: 2.5% 1.5%;
     
-  }
-
-  .boxIcon{
+       flex-direction: row;
+       justify-content: space-evenly;
+       background-color: rgb(255, 0, 55);
+       display: flex;  
   
   }
 
+  .boxIcon{
+    padding: 2.5% 1.5%;
+    
+       flex-direction: row;
+       justify-content: space-evenly;
+       background-color: rgb(255, 0, 55);
+       display: flex; 
+  }
