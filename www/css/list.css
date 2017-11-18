@@ -1,17 +1,22 @@
+#wrap{
+    margin: 0 auto;
+}
 .clear{
-    clear: both;
+    display: flex;
+}
+.list_border{
     border-bottom: 1px dotted #666666;
-    margin: 0 0 20px 0;
-    padding-bottom: 20px;
+    width: 100%;
+}
+.ma_b{
+    margin-bottom:20px; 
 }
 li{
     list-style: none;
 }
 .rightBox{
-    float: left;
 }
 .list_Photo{
-float: left;
 margin-right:12px;
 }
 
