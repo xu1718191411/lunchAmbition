@@ -1,39 +1,38 @@
 <ons-page id="start_page">
-<ons-splitter var="mySplitter" ng-controller="SplitterController as splitter">
-  <ons-splitter-side side="left" width="220px" collapse swipeable>
-    <ons-page>
-      <ons-list>
-        <ons-list-item ng-click="splitter.load('maps.html')" tappable>
-          MAP
-        </ons-list-item>
-        <ons-list-item ng-click="splitter.load('restaurantList.html')" tappable>
-          restaurantList
-        </ons-list-item>
-        <ons-list-item ng-click="splitter.load('restaurantinfo.html')" tappable>
-          restaurantInfo
-        </ons-list-item>
+    <ons-splitter var="mySplitter" ng-controller="SplitterController as splitter">
+        <ons-splitter-side side="left" width="220px" collapse swipeable>
+            <ons-page>
+                <ons-list>
+                    <ons-list-item ng-click="splitter.load('maps.html')" tappable>
+                        MAP
+                    </ons-list-item>
+                    <ons-list-item ng-click="splitter.load('restaurantList.html')" tappable>
+                        restaurantList
+                    </ons-list-item>
+                    <ons-list-item ng-click="splitter.load('restaurantinfo.html')" tappable>
+                        restaurantInfo
+                    </ons-list-item>
 
 
-        <ons-list-item ng-click="splitter.load('mypage.html')" tappable>
-          MYPAGE
-        </ons-list-item>
-        <ons-list-item ng-click="splitter.load('teampage.html')" tappable>
-          TEAMPAGE
-        </ons-list-item>
-        <ons-list-item ng-click="splitter.load('helps.html')" tappable>
-          HELP
-        </ons-list-item>
+                    <ons-list-item ng-click="splitter.load('mypage.html')" tappable>
+                        MYPAGE
+                    </ons-list-item>
+                    <ons-list-item ng-click="splitter.load('teampage.html')" tappable>
+                        TEAMPAGE
+                    </ons-list-item>
+                    <ons-list-item ng-click="splitter.load('helps.html')" tappable>
+                        HELP
+                    </ons-list-item>
+
+                </ons-list>
+            </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content page="maps.html"></ons-splitter-content>
+    </ons-splitter>
 
 
-      </ons-list>
-    </ons-page>
-  </ons-splitter-side>
-  <ons-splitter-content page="maps.html"></ons-splitter-content>
-</ons-splitter>
 
-
-
-<template id="maps.html">
+    <template id="maps.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -58,7 +57,7 @@
   </ons-page>
 </template>
 
-<template id="restaurantList.html">
+    <template id="restaurantList.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -75,7 +74,7 @@
   </ons-page>
 </template>
 
-<template id="restaurantinfo.html">
+    <template id="restaurantinfo.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -92,7 +91,7 @@
   </ons-page>
 </template>
 
-<template id="mypage.html">
+    <template id="mypage.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -111,7 +110,7 @@
 </template>
 
 
-<template id="teampage.html">
+    <template id="teampage.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -129,7 +128,7 @@
 </template>
 
 
-<template id="helps.html">
+    <template id="helps.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
@@ -149,4 +148,3 @@
 
 
 </ons-page>
-
