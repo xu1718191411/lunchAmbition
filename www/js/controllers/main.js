@@ -49,7 +49,7 @@ module
             searchNearBy($scope.address)
         }
 
-        $scope.saveStore = function(p) {
+        $scope.saveStore = function(n, p) {
             $scope.saveShop(p)
         }
 
@@ -57,9 +57,14 @@ module
             $scope.positions = [];
         }
 
-        $scope.showInfo = function(p) {
-            $scope.selectedShop = p
+        $scope.showInfo = function(p, i) {
+
+            $scope.selectedShop = i
             vm.map.showInfoWindow("cached", this);
+        }
+
+        $scope.goToDetail = function(p) {
+            requireForDetail(p.place_id)
         }
 
         NgMap.getMap().then(function(map) {
@@ -76,16 +81,12 @@ module
                 rankby: "distance",
                 type: ['store'],
             }, function(results, status) {
-                console.log(results)
-                console.log(status)
-                console.log($scope.centerPos)
-
                 $scope.$apply(function() {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         for (var i = 0; i < results.length; i++) {
                             console.log(results[i])
                             var pos = [results[i].geometry.location.lat(), results[i].geometry.location.lng()]
-                            var obj = { pos: pos, name: results[i].name, formatted_address: results[i].vicinity, place_id: results[i].place_id }
+                            var obj = { pos: pos, name: results[i].name, formatted_address: results[i].vicinity, place_id: results[i].place_id, icon: results[i].icon }
                             $scope.positions.push(obj)
                         }
                     }
@@ -101,14 +102,13 @@ module
                 $scope.$apply(function() {
                     if (status === 'OK') {
                         vm.map.setCenter(results[0].geometry.location);
-                        console.log("results", results);
                         for (var i = 0; i < results.length; i++) {
                             var formatted_address = results[i].formatted_address
                             var place_id = results[i].place_id
                             var pos = [results[i].geometry.location.lat(), results[i].geometry.location.lng()]
                             var obj = { pos: pos, name: text, formatted_address: formatted_address, place_id: place_id }
                             $scope.positions.push(obj)
-                            console.log($scope.positions)
+
                         }
 
                     } else {
@@ -118,6 +118,27 @@ module
 
             });
 
+        }
+
+        function requireForDetail(_id) {
+            vm.service.getDetails({
+                placeId: _id
+            }, function(place, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    // var marker = new google.maps.Marker({
+                    //     map: map,
+                    //     position: place.geometry.location
+                    // });
+
+                    console.log(place)
+                        // google.maps.event.addListener(marker, 'click', function() {
+                        //     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                        //         'Place ID: ' + place.place_id + '<br>' +
+                        //         place.formatted_address + '</div>');
+                        //     infowindow.open(map, this);
+                        // });
+                }
+            });
         }
 
 
