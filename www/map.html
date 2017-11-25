@@ -1,21 +1,52 @@
-
 <div ng-controller="GoogleMapController as vm">
 
-<p>行きたい場所だをここに!</p>
+    <p>行きたい場所だをここに!</p>
 
-<input ng-model="address" >
-<button ng-click="search()">検索する</button>
-<span ng-model="positions"></span>
-{{name}}
-<ng-map zoom="13">
+    <input ng-model="address">
+    <button ng-click="search()">検索する</button>
+    <button ng-click="clear()">消去</button>
+    <span ng-model="positions"></span>
+    <br/>
+    <ng-map zoom="13">
+        <info-window id="cached" template="custom-cached-info-window-template.html"></info-window>
+        <marker on-click="showInfo(p,$index)" ng-repeat="p in positions track by $index" id="custom-marker-{{$index}} " position="{{p.pos}} ">
+        </marker>
+    </ng-map>
 
-    <marker ng-repeat="p in positions track by $index"
-      id="custom-marker-{{$index}}"
-      position="{{p.pos}}">
-    </marker>
+    <script id="custom-cached-info-window-template.html" type="text/ng-template">
+        <div ng-non-bindable="">
+            店名:{{selectedShop.name}}
+            <br/> 住所:{{selectedShop.formatted_address}}
+            <br/> Lat: {{anchor.getPosition().lat()}}<br/> Lng: {{anchor.getPosition().lng()}}<br>
+        </div>
+    </script>
 
-</ng-map>
+
+
+
+
+
+
+    <div>
+
+
+        <ul class="list">
+            <li class="list-item" ng-click="goToDetail(p)" ng-repeat="p in positions track by $index" style="cursor:pointer">
+                <div class="list-item__left">
+                    <img class="list-item__thumbnail" src="{{p.icon}}" alt="Cute kitten">
+                </div>
+
+                <div class="list-item__center">
+                    <div class="list-item__title">{{p.name}}</div>
+                    <div class="list-item__subtitle">{{p.formatted_address}}</div>
+                </div>
+
+
+                <div class="list-item__right">
+                    <i class="ion-ios-information list-item__icon"></i>
+                </div>
+
+            </li>
+        </ul>
+    </div>
 </div>
-
-
-        
