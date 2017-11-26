@@ -21,16 +21,10 @@
         </div>
     </script>
 
-
-
-
-
-
-
     <div>
 
 
-        <ul class="list">
+        <ul class="list" ng-show="!ifShowDeail">
             <li class="list-item" ng-click="goToDetail(p)" ng-repeat="p in positions track by $index" style="cursor:pointer">
                 <div class="list-item__left">
                     <img class="list-item__thumbnail" src="{{p.icon}}" alt="Cute kitten">
@@ -41,12 +35,36 @@
                     <div class="list-item__subtitle">{{p.formatted_address}}</div>
                 </div>
 
-
                 <div class="list-item__right">
                     <i class="ion-ios-information list-item__icon"></i>
                 </div>
 
             </li>
         </ul>
+
+
+        
+        <div ng-show="ifShowDeail" style="height: 200px; padding: 1px 0 0 0;">
+            <div class="card card--material">
+              <div class="card__title card--material__title">{{detailShop.name}}</div>
+              <div class="card__content card--material__content">
+                  <div>
+                  {{detailShop.formatted_address}}
+                </div>
+                <div>
+                    {{detailShop.formatted_phone_number}}
+                </div>
+           
+                <div ng-repeat="_p in detailShop.photots track by $index">
+        
+                    <img src="{{_p.getUrl}}" alt="" width="330px">
+                </div>
+                <div>
+                    {{detailShop.rating}}
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>

@@ -9,5 +9,9 @@ angular.element(document).ready(function () {
         console.log("ブラウザの準備ができました");
         angular.bootstrap(document.body, ['app']);
     }
+
+
+
+
 });
 
