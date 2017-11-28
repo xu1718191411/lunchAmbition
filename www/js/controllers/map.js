@@ -32,8 +32,18 @@ module
 
 
 module
-    .controller('GoogleMapController', function($scope, NgMap) {
+    .controller('GoogleMapController', function($scope, $timeout, NgMap) {
         $scope.name = "syoui"
+
+        var qualificationLeastTime = 10;
+        var qualificationLeastDistance = 1500
+        var checkInShop = {
+            placeId: undefined,
+            checkInTime: undefined,
+            lastCheckTime: undefined,
+            lat: undefined,
+            lng: undefined
+        }
 
         var vm = this;
         vm.types = "['establishment']";
@@ -49,11 +59,9 @@ module
         var service = new google.maps.DistanceMatrixService();
         vm.distanceService = service;
 
-
-
-
         $scope.search = function() {
             //searchFromKeyWords($scope.address)
+            $scope.ifShowDeail = false;
             searchNearBy($scope.address)
         }
 
@@ -89,7 +97,21 @@ module
                 var origin1 = new google.maps.LatLng($scope.centerPos.lat, $scope.centerPos.lng);
                 var destinationB = new google.maps.LatLng(p.geometry.location.lat(), p.geometry.location.lng());
                 calculateDistanceBetweenTwoPoints(origin1, destinationB, function(distance) {
-                    alert(distance)
+                    if (distance > qualificationLeastDistance) {
+                        alert("店にとりあえず行こうよう")
+                    } else {
+                        alert("店につきました、いただきましょう")
+
+                        checkInShop.placeId = p.place_id
+                        checkInShop.checkInTime = Date.parse(new Date()) / 1000
+                        checkInShop.lastCheckTime = Date.parse(new Date()) / 1000
+                        checkInShop.lat = p.geometry.location.lat()
+                        checkInShop.lng = p.geometry.location.lng()
+
+
+                        startCheckIng()
+
+                    }
                 });
             } else {
                 alert("現在地を取得してください")
@@ -100,8 +122,6 @@ module
             allowCurrentLocation(map)
             vm.map = map;
             vm.service = new google.maps.places.PlacesService(map);
-
-
         });
 
         searchNearBy = function(text) {
@@ -231,11 +251,65 @@ module
             });
         }
 
+        function startCheckIng() {
+            //get current location
+            //caclulate the distance location between current location and destination 
+
+
+            getCurrentLocation(function(err, obj) {
+                if (err == 1) return; //get current location in failure
+
+
+                var origin1 = new google.maps.LatLng(obj.lat, obj.lng);
+                var destinationB = new google.maps.LatLng(checkInShop.lat, checkInShop.lng);
+
+                calculateDistanceBetweenTwoPoints(origin1, destinationB, function(distance) {
+                    if (distance < qualificationLeastDistance) {
+
+                        checkInShop.lastCheckTime = Date.parse(new Date()) / 1000
+                        console.log(checkInShop)
+                        if (checkInShop.lastCheckTime - checkInShop.checkInTime < qualificationLeastTime) {
+
+                            $timeout(function() {
+                                startCheckIng()
+                            }, 1000)
+                        } else {
+                            alert("it is good")
+                        }
+                    }
+                })
+
+
+
+            })
+
+        }
+
+
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
             infoWindow.setContent(browserHasGeolocation ?
                 'Error: The Geolocation service failed.' :
                 'Error: Your browser doesn\'t support geolocation.');
+        }
+
+        function getCurrentLocation(cb) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    $scope.centerPos = pos;
+                    vm.map.setCenter(pos);
+
+                    cb(0, pos)
+                }, function() {
+                    cb(1, { msg: "error" })
+                });
+            } else {
+                cb(1, { msg: "not supported" })
+            }
         }
 
         $scope.saveShop = function(p) {
@@ -290,12 +364,9 @@ module
             ons.notification.alert({
                 title: '登録失敗',
                 message: '登録失敗しました'
-            });
+            })
         }
 
 
 
-
-
-
-    });
+    })
