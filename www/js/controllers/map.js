@@ -46,6 +46,12 @@ module
         var geocoder = new google.maps.Geocoder();
         vm.geocoder = geocoder;
 
+        var service = new google.maps.DistanceMatrixService();
+        vm.distanceService = service;
+
+
+
+
         $scope.search = function() {
             //searchFromKeyWords($scope.address)
             searchNearBy($scope.address)
@@ -70,10 +76,32 @@ module
             requireForDetail(p.place_id)
         }
 
+        $scope.backToList = function() {
+            $scope.ifShowDeail = false;
+        }
+
+        $scope.startCheckIn = function(p) {
+            console.log(p)
+            console.log($scope.centerPos)
+
+            if (Object.getOwnPropertyNames($scope.centerPos).length > 0) {
+                // calculate the distance between current location and the destination place
+                var origin1 = new google.maps.LatLng($scope.centerPos.lat, $scope.centerPos.lng);
+                var destinationB = new google.maps.LatLng(p.geometry.location.lat(), p.geometry.location.lng());
+                calculateDistanceBetweenTwoPoints(origin1, destinationB, function(distance) {
+                    alert(distance)
+                });
+            } else {
+                alert("現在地を取得してください")
+            }
+        }
+
         NgMap.getMap().then(function(map) {
             allowCurrentLocation(map)
             vm.map = map;
             vm.service = new google.maps.places.PlacesService(map);
+
+
         });
 
         searchNearBy = function(text) {
@@ -82,7 +110,8 @@ module
                 location: $scope.centerPos,
                 radius: 500,
                 rankby: "distance",
-                type: ['store'],
+                radius: 1500,
+                keyword: text
             }, function(results, status) {
                 $scope.$apply(function() {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -131,28 +160,28 @@ module
 
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         console.log(place)
-                        //formatted_address
-                        //formatted_phone_number
-                        //geometry
+                            //formatted_address
+                            //formatted_phone_number
+                            //geometry
                             //location
-                                    //lat
-                                    //lng
-                        //icon
-                        //name
-                        //photos[]
+                            //lat
+                            //lng
+                            //icon
+                            //nam
+                            //photos[]
                             //getUrl()
                             //width
                             //height
-                        //place_id
-                        //rating
-                        //price_level
-                        //website
-                                    
+                            //place_id
+                            //rating
+                            //price_level
+                            //website
+
                         $scope.detailShop = place;
                     }
 
                 })
-               
+
             });
         }
 
@@ -188,6 +217,19 @@ module
             }
         }
 
+
+        function calculateDistanceBetweenTwoPoints(departure, destination, cb) {
+            vm.distanceService.getDistanceMatrix({
+                origins: [departure],
+                destinations: [destination],
+                travelMode: 'DRIVING',
+            }, function(response, status) {
+                console.log(response)
+                cb(response['rows'][0]['elements'][0]['distance']['value']);
+                // See Parsing the Results for
+                // the basics of a callback function.
+            });
+        }
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
@@ -250,6 +292,8 @@ module
                 message: '登録失敗しました'
             });
         }
+
+
 
 
 

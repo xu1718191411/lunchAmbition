@@ -25,7 +25,7 @@
 
 
         <ul class="list" ng-show="!ifShowDeail">
-            <li class="list-item" ng-click="goToDetail(p)" ng-repeat="p in positions track by $index" style="cursor:pointer">
+            <li class="list-item list-item--chevron list-item--tappable" ng-click="goToDetail(p)" ng-repeat="p in positions track by $index" style="cursor:pointer">
                 <div class="list-item__left">
                     <img class="list-item__thumbnail" src="{{p.icon}}" alt="Cute kitten">
                 </div>
@@ -42,29 +42,39 @@
             </li>
         </ul>
 
-
-        
         <div ng-show="ifShowDeail" style="height: 200px; padding: 1px 0 0 0;">
+
+            <div>
+                <span ng-click="backToList()">検索結果</span>
+                <span>></span>
+                <span>詳細</span>
+            </div>
             <div class="card card--material">
-              <div class="card__title card--material__title">{{detailShop.name}}</div>
-              <div class="card__content card--material__content">
-                  <div>
-                  {{detailShop.formatted_address}}
-                </div>
-                <div>
-                    {{detailShop.formatted_phone_number}}
-                </div>
-           
-                <div ng-repeat="_p in detailShop.photots track by $index">
-        
-                    <img src="{{_p.getUrl}}" alt="" width="330px">
-                </div>
-                <div>
-                    {{detailShop.rating}}
+                <div class="card__title card--material__title">{{detailShop.name}}</div>
+                <div class="card__content card--material__content">
+                    <div>
+                        {{detailShop.formatted_address}}
+                    </div>
+                    <div>
+                        {{detailShop.formatted_phone_number}}
+                    </div>
+
+                    <div ng-repeat="_p in detailShop.photots track by $index">
+
+                        <img src="{{_p.getUrl}}" alt="" width="330px">
+                    </div>
+                    <div>
+                        {{detailShop.rating}}
+                    </div>
+
+                    <div>
+                        <ons-button modifier="material" ng-click="startCheckIn(detailShop)">
+                            start checin
+                        </ons-button>
+                    </div>
                 </div>
             </div>
+
+
         </div>
-
-
     </div>
-</div>
