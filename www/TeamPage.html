@@ -1,29 +1,38 @@
-teamPAGE
-<ons-page id=""  ng-controller="TeamController">
+<ons-page id="TeamPage"  ng-controller="TeamController">
     <h1>TeamPage</h1>
-    <div class="Teambox">
-        <div class="redbox">Myteam Point</div>
-        myteam point VS  
-        <div  class="bluebox"> Opponet Point</div>
-        opponet point
-    </div> 
 
-    <ul>
-        <li ng-repeat="dataitem in dataArray" >
-            <!--<div class="greenbox">-->
-            <div class="Teambox">
-                            <!-- 表 -->
-                <!-- 順位     -->
-                <div class ="yellowbox">{{dataitem.number}} </div>
-                <!-- name-->
-                <div class="whitebox" >{{dataitem.username}} </div>
-                <!-- point -->
-                <div class="whitebox" >{{dataitem.userpoint}} </div>
-                <!-- aicon -->
-                <div class="whitebox" >{{dataitem.userlank}}</div>
-            <!--</div>-->
+    <ul class="list">
+        <li class="list_item list_item--Point">
+            <div class="list_item_left list_item--Point_left">
+                <img class="list_item_thumbnail list_item--Point_thumbnail" src="..\img\teamPage\No1.jpg" alt="Cute kitten">
+            </div>
+      
+            <div class="list_item_center list_item--Point_center"></div>
+            <div class="list_item_center list_item--Point_center">No1</div>
+            <div class="list_item_center list_item--Point_center">ID:{PointList.ID}</div>
+            <div class="list_item_center list_item--Point_center">point:{PointList.Point}</div>       
+        </li>
+      
+        <li class="list_item list_item--Point">
+            <div class="list_item_left list_item--Point_left">
+            <img class="list_item_thumbnail list_item--Point_thumbnail" src="..\img\teamPage\No2.jpg" alt="Cute kitten">
+        </div>
+      
+          <div class="list_item_center list_item--Point_center">
+            <div class="list_item_title list_item--Point_title">No2</div>
+            <div class="list_item_subtitle list_item--Point_subtitle">No2Member</div>
+          </div>
+        </li>
+
+        <li class="list_item list_item--Point">
+            <div class="list_item_left list_item--Point_left">
+              <img class="list_item_thumbnail list_item--Point_thumbnail" src="..\img\teamPage\No3.jpg" alt="Cute kitten">
+            </div>
+    
+            <div class="list_item_center list_item--Point_center">
+              <div class="list_item_title list_item--Point_title">No3</div>
+              <div class="list_item_subtitle list_item--Point_subtitle">No3Member</div>
             </div>
         </li>
-    </ul>     
-
+     </ul>
 </ons-page>

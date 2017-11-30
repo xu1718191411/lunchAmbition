@@ -1,31 +1,23 @@
-<ons-page id=""  ng-controller="MyPageController">
-    
-<h1>MYPAGE</h1>
-<div>
-Myteam Point  /  Opponet Point
-</div> 
 
-<ul class="list">
-  
+<ons-page id="page8">
+    <h1>MyPage</h1> 
 
-
-  <li class="list-item list-item--chevron" ng-repeat="dataitem in dataArray" >
-    <div class="list-item__left">
-      <img class="list-item__thumbnail" src="http://placekitten.com/g/40/40" alt="Cute kitten">
-    </div>
-
-    <div class="list-item__center list-item--material__center">
-      <div class="list-item__title list-item--material__title">店名前:{{dataitem.shopName}}</div>
-      <div class="list-item__subtitle list-item--material__subtitle">消費金額:
-{{dataitem.expense}}</div>
-    </div>
-
-  </li>
-
-
-
-
-</ul>
+        <ul class="list list--inset">
+            <li class="list-item list--inset__item list-item--chevron list-item--tappable">
+                <div class="list-item__center">List Item with Chevron</div>
+            </li>
             
-       
+            <li class="list-item list--inset__item list-item--chevron list-item--tappable">
+                <div class="list-item__center">
+                    <div class="button-bar" style="width:280px;">
+                        
+                        <div class="button-bar__item">
+                            <button class="button-bar__button">Two</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </li>
+        </ul>
 </ons-page>

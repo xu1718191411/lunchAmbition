@@ -1,46 +1,37 @@
-#wrap{
-    margin: 0 auto;
-}
 .clear{
-    display: flex;
-}
-.list_border{
+    clear: both;
     border-bottom: 1px dotted #666666;
-    width: 100%;
+    margin: 0 0 20px 0;
+    padding-bottom: 20px;
 }
-.ma_b{
-    margin-bottom:20px; 
-}
-li{
-    list-style: none;
-}
-.rightBox{
-}
-.list_Photo{
+
+#list_Photo{
+float: left;
 margin-right:12px;
 }
 
-.list_info_table{
+#list_info_table{
     padding-top:6px;
 }
 
-.list_Genre{
+#list_Genre{
     font-size: 14px;
 }
-.list_station{
+#list_station{
     background:#666666;
     text-align: center;
     border-radius:5px;
     font-size: 13px;
     color:#ffffff;
 }
-.list_price{
+#list_price{
     font-size: 14px;
 }
-.list_Shopname{
+#list_Shopname{
     font-size: 17px;
     font-weight: bold;
 }
-.list_access{
+#list_access{
     font-size: 14px;
 }
+
