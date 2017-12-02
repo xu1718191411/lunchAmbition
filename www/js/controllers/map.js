@@ -1,8 +1,10 @@
 // APIキーの設定
 var APPLICATION_KEY = "13189140e16f068df04ebe4d93ebaf5767d6ec824736f14d2467426f9ce3b7ee";
 var CLIENT_KEY = "a1ea34fca85c56a9cc9176da51ccbdc95b2fb162f80fe421250661a29c754c91";
-
+var MEMBER_ID = 1123445
 ncmb = new NCMB(this.APPLICATION_KEY, this.CLIENT_KEY);
+
+
 
 module.controller('mainCtrl', function($scope) {
     // ここにJavaScriptを利用した、動的なアプリの動作を書いていきます
@@ -107,9 +109,13 @@ module
                         checkInShop.lastCheckTime = Date.parse(new Date()) / 1000
                         checkInShop.lat = p.geometry.location.lat()
                         checkInShop.lng = p.geometry.location.lng()
+                      
+                        myDB.insertIntoDataBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:Date.parse(new Date())},function(err,res){
+                            if(err == null){
 
-
-                        startCheckIng()
+                                startCheckIng(p)
+                            }   
+                        })
 
                     }
                 });
@@ -251,7 +257,7 @@ module
             });
         }
 
-        function startCheckIng() {
+        function startCheckIng(p) {
             //get current location
             //caclulate the distance location between current location and destination 
 
@@ -271,10 +277,16 @@ module
                         if (checkInShop.lastCheckTime - checkInShop.checkInTime < qualificationLeastTime) {
 
                             $timeout(function() {
-                                startCheckIng()
+                                startCheckIng(p)
                             }, 1000)
                         } else {
-                            alert("it is good")
+
+                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id},{"lastCheckInTime":Date.parse(new Date())},function(err,res){
+                                if(err == null){
+                                    alert("it is good")
+                                }
+                            })
+
                         }
                     }
                 })
@@ -285,6 +297,7 @@ module
 
         }
 
+    
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);

@@ -14,14 +14,12 @@ module.controller('TeamController',function($scope){
                 console.log($scope.lunch.HighPointUser);
                 $scope.name ="No1";
             })
-
+        })
         .catch(function(err){
+
         });
 
+    }
+})
 
-    /* document.addEventListener('pageinit',function(e){
-         if(e.target.id === "listPage"){
-             getHighPoint();
-            };
-          });*/
 
