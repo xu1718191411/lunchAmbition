@@ -110,7 +110,8 @@ module
                         checkInShop.lat = p.geometry.location.lat()
                         checkInShop.lng = p.geometry.location.lng()
                       
-                        myDB.insertIntoDataBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:Date.parse(new Date())},function(err,res){
+                        checkInTime = Date.parse(new Date())/1000
+                        myDB.insertIntoDataBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},function(err,res){
                             if(err == null){
 
                                 startCheckIng(p)
@@ -224,9 +225,10 @@ module
                             lng: position.coords.longitude
                         };
                         $scope.centerPos = pos;
+                        $scope.centerPosition = [pos.lat,pos.lng]
 
-                        infoWindow.setPosition(pos);
-                        infoWindow.setContent('現在地');
+                        //infoWindow.setPosition(pos);
+                        //infoWindow.setContent('現在地');
                         map.setCenter(pos);
                     })
 
@@ -270,29 +272,39 @@ module
                 var destinationB = new google.maps.LatLng(checkInShop.lat, checkInShop.lng);
 
                 calculateDistanceBetweenTwoPoints(origin1, destinationB, function(distance) {
-                    if (distance < qualificationLeastDistance) {
+                    if (distance <= qualificationLeastDistance) {
 
                         checkInShop.lastCheckTime = Date.parse(new Date()) / 1000
                         console.log(checkInShop)
                         if (checkInShop.lastCheckTime - checkInShop.checkInTime < qualificationLeastTime) {
 
-                            $timeout(function() {
-                                startCheckIng(p)
-                            }, 1000)
+                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())},function(err,res){
+                                $timeout(function() {
+                                    startCheckIng(p)
+                                }, 1000)
+                            })
+
+
+
                         } else {
 
-                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id},{"lastCheckInTime":Date.parse(new Date())},function(err,res){
+                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date()),"finish":true},function(err,res){
                                 if(err == null){
                                     alert("it is good")
                                 }
                             })
 
                         }
+                    }else{
+                        //leave away from the shop so this record should be set invalid
+                        myDB.deleteInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},function(err,res){
+                            if(err == null){
+                                alert("leave the area this record should be removed")
+                            }
+                        })
+
                     }
                 })
-
-
-
             })
 
         }
@@ -315,7 +327,7 @@ module
                     };
                     $scope.centerPos = pos;
                     vm.map.setCenter(pos);
-
+                    $scope.centerPosition = [pos.lat,pos.lng]
                     cb(0, pos)
                 }, function() {
                     cb(1, { msg: "error" })

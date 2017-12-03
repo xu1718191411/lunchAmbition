@@ -16,72 +16,24 @@ module.controller('LoginController', function ($scope) {
         })
     } 
 
-    function findUserList(cb){
-        var memberData = ncmb.DataStore("MemberList"); 
-        console.log($scope.teamID)
-        memberData.equalTo("TeamID", parseInt($scope.teamID))
-        .fetchAll().then(function(results){
-            $scope.$apply(function(){
-                if(cb(results)){
-                    ons.notification.alert({
-                        title:'成功',
-                        message: 'ログインできました'
-                    });  
-                }else{
-                    ons.notification.alert({
-                        title:'エラー',
-                        message: 'ログインできませんでした'
-                    });  
-                }
-            })
+    $scope.login = function(memberName){
+        myDB.login(memberName,memberName,$scope.teamID,function(err,res){
+            console.log(err)
+            console.log(res)
+            if(err == null){
+                myNavigator.pushPage("start.html", { animation: "slide" })
+            }else{
+                    alert("login error")
+            }
         })
     }
 
-    $scope.login = function(){
-        findUserList(function(results){
-               console.log(results)
-               for(var i=0;i<results.length;i++){
-                   if(results[i].MemberName == $scope.MemberName){
-
-
-                       ncmb.User.login(results[i].MemberName, "hey")
-                       .then(function(data){
-                         // ログイン後処理
-                         console.log(data)
-                       })
-                       .catch(function(err){
-                        console.log("loginData"+err)
-                         // エラー処理
-                       });
-
-
-                       return true
-
-                   }
-               }
-
-               return false
-        }) 
-    }
-
-
-    function signUp(){
-        var user = new ncmb.User();
-        
-        //ユーザー名・パスワードを設定
-        user.set("userName", "xu")
-            .set("password", "hey")
-            .set("TeamID", 1); // 任意フィールドを追加
-        
-        // 新規登録
-        user.signUpByAccount()
-            .then(function(){
-              // 登録後処理
-            })
-            .catch(function(err){
-              // エラー処理
-            });
-        
+    $scope.register = function(){
+        myDB.registerUser({userName:"xu",password:"xu",teamID:1,"phone_number":"090-1234-5678"});
+        myDB.registerUser({userName:"nagano",password:"nagano",teamID:2,"phone_number":"090-1234-5678"});
+        myDB.registerUser({userName:"honda",password:"honda",teamID:1,"phone_number":"090-1234-5678"});
+        myDB.registerUser({userName:"miya",password:"miya",teamID:1,"phone_number":"090-1234-5678"});
+        myDB.registerUser({userName:"nagase",password:"nagase",teamID:2,"phone_number":"090-1234-5678"});
     }
 
 

@@ -1,4 +1,6 @@
 module.controller('MyPageController',function($scope){
+    
+    $scope.currentUser = myDB.getCurrentUser()
     $scope.name = "MIYAMOTO"
 
 	$scope.dataArray = [{
@@ -20,6 +22,9 @@ module.controller('MyPageController',function($scope){
         shopName: "bbb",
         expense: 60,
     }];
+
+
+
 
 
 

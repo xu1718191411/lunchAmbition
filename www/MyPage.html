@@ -1,10 +1,13 @@
+<div ng-controller="MyPageController">
+
 
 <ons-page id="page8">
     <h1>MyPage</h1> 
 
         <ul class="list list--inset">
             <li class="list-item list--inset__item list-item--chevron list-item--tappable">
-                <div class="list-item__center">List Item with Chevron</div>
+                <div class="list-item__center">List Item with {{currentUser.userName}}</div>
+                
             </li>
             
             <li class="list-item list--inset__item list-item--chevron list-item--tappable">
@@ -21,3 +24,4 @@
             </li>
         </ul>
 </ons-page>
+</div>

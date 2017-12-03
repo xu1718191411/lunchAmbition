@@ -11,6 +11,12 @@
         <info-window id="cached" template="custom-cached-info-window-template.html"></info-window>
         <marker on-click="showInfo(p,$index)" ng-repeat="p in positions track by $index" id="custom-marker-{{$index}} " position="{{p.pos}} ">
         </marker>
+
+
+        <marker position="{{centerPosition}}">
+            
+        </marker>
+
     </ng-map>
 
     <script id="custom-cached-info-window-template.html" type="text/ng-template">
