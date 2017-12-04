@@ -1,0 +1,39 @@
+h1,h2,div,dl,dt,dd{
+    margin: 0;
+    padding: 0;
+}
+.clear{
+    clear: both;
+    border-bottom: 1px dotted #666666;
+    margin: 0 0 20px 0;
+    padding-bottom: 20px;
+}
+#restinfoBox h2{
+    background: #b94047;
+    color:#fff;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+#restinfoBox dl{
+    display: flex;
+}
+
+#restinfoBox dl dt{
+    width: 12%;
+    background:#f8e58c;
+    padding:12px 10px 0;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+    color: #6a5d21;
+    vertical-align: middle;
+}
+#restinfoBox dl dd{
+    width: 85%;
+    background:#f8f4e6;
+    padding: 12px;
+    border-bottom: 1px solid #fff;
+    color: #333333;
+}
