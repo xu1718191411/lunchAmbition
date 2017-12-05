@@ -63,29 +63,26 @@
         .angular-google-map-container {
             height: 400px;
         }
+
+        .lunchBackGround{
+            background: url("img/lunch_top.jpg") no-repeat;
+            background-size: cover;
+            height:100%
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div ng-controller="LoginController">
-        <ons-navigator var="myNavigator"> 
-            <ons-page id="login_page">
-             
-                    <div style="text-align: center; margin-top: 30px;">
-                      
-                     <ons-input id="username" modifier="underbar" placeholder="{{MemberName}}"  ng-model="MemberName" float></ons-input>
-                      
-                      <p style="margin-top: 30px;">
-                        <ons-button ng-click="login(MemberName)">Sign in</ons-button>
-                      </p>
-              
-                    </div>
-            
-              </ons-page>
-        </ons-navigator>
-        </div>
+    <div ng-app class="container">
+            <ons-navigator var="myNavigator" page="login"></ons-navigator>
+
+            <ons-template id="login">
+            <ons-page id="login.page">
+                <ng-include src="'logins.html'"></ng-include>
+            </ons-page>
+            </ons-template>
+      
     </div>
 </body>
 

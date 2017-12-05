@@ -278,7 +278,7 @@ module
                         console.log(checkInShop)
                         if (checkInShop.lastCheckTime - checkInShop.checkInTime < qualificationLeastTime) {
 
-                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())},function(err,res){
+                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())/1000},function(err,res){
                                 $timeout(function() {
                                     startCheckIng(p)
                                 }, 1000)
@@ -288,7 +288,7 @@ module
 
                         } else {
 
-                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date()),"finish":true},function(err,res){
+                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())/1000,"finish":true},function(err,res){
                                 if(err == null){
                                     alert("it is good")
                                 }

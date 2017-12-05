@@ -9,9 +9,6 @@
                     <ons-list-item ng-click="splitter.load('restaurantList.html')" tappable>
                         restaurantList
                     </ons-list-item>
-                    <ons-list-item ng-click="splitter.load('restaurantinfo.html')" tappable>
-                        restaurantInfo
-                    </ons-list-item>
 
 
                     <ons-list-item ng-click="splitter.load('mypage.html')" tappable>
@@ -74,22 +71,6 @@
   </ons-page>
 </template>
 
-    <template id="restaurantinfo.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="left">
-        <ons-toolbar-button ng-click="mySplitter.left.open()">
-          <ons-icon icon="md-menu"></ons-icon>
-        </ons-toolbar-button>
-      </div>
-      <div class="center">
-        restaurantinfo
-      </div>
-    </ons-toolbar>
-
-    <ng-include src="'restaurantInfo.html'"></ng-include>
-  </ons-page>
-</template>
 
     <template id="mypage.html">
   <ons-page>

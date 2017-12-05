@@ -3,7 +3,10 @@ module.controller('LISTController', function($scope) {
     $scope.lunch = {};
     $scope.lunch.list = [];
     getShopList()
-
+    $scope.isDetailShow = false;
+    $scope.showDetail = function(){
+        $scope.isDetailShow = true;
+    }
 
     function getShopList() {
         myDB.findAllData("ShopList", {}, function(err, res) {
