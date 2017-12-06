@@ -34,7 +34,7 @@ var myDB = {
         }
         newTableInstance.save().then(function() {
             console.log("保存に成功しました。:: " + newTableInstance.objectId);
-            cb(null, "ok")
+            cb(null, newTableInstance.objectId)
         }).catch(function(error) {
             console.log("保存に失敗しました。エラー:" + error);
             cb(true, error)
@@ -65,12 +65,11 @@ var myDB = {
                 }
                 result.update().then(function() {
                     console.log("更新成功しました。:: " + result.objectId);
-                    cb(null, "ok")
+                    cb(null, result.objectId)
                 }).catch(function(error) {
                     console.log("更新に失敗しました。エラー:" + error);
                     cb(true, error)
                 })
-
 
             }).catch(function(err) {
                 console.log(err);

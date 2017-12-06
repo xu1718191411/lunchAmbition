@@ -225,6 +225,13 @@ module
             })
         }
 
+        function accumulatePoint(historyID){
+            myDB.insertIntoDataBase("GetPointList",{MemberID:MEMBER_ID,GetPoint:10,historyID:historyID},function(err,res){
+                if(err == null){
+                    alert("10 point")
+                }
+            })
+        }
 
         function allowCurrentLocation(map) {
             var infoWindow = new google.maps.InfoWindow({ map: map });
@@ -304,6 +311,9 @@ module
                             myDB.updateInfoDateBase("CheckInHistory", { memberId: MEMBER_ID, shopId: p.place_id, checkInTime: checkInTime }, { "lastCheckInTime": Date.parse(new Date()) / 1000, "finish": true }, function(err, res) {
                                 if (err == null) {
                                     requireForVisitHistory(p.place_id)
+                                    console.log("checkin result")
+                                    console.log(res)
+                                    accumulatePoint(res)
                                     alert("it is good")
                                 }
                             })
