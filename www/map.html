@@ -14,7 +14,7 @@
 
 
         <marker position="{{centerPosition}}">
-            
+
         </marker>
 
     </ng-map>
@@ -46,13 +46,14 @@
                 </div>
 
             </li>
+
         </ul>
 
         <div ng-show="ifShowDeail" style="height: 200px; padding: 1px 0 0 0;">
 
             <div>
                 <span ng-click="backToList()">検索結果</span>
-                <span>></span>
+                <span></span>
                 <span>詳細</span>
             </div>
             <div class="card card--material">
@@ -75,11 +76,24 @@
 
                     <div>
                         <ons-button modifier="material" ng-click="startCheckIn(detailShop)">
-                            start checin
+                            店にいく
                         </ons-button>
                     </div>
                 </div>
             </div>
+
+            <ul class="list list--material">
+                <li class="list-item list-item--material" ng-repeat="p in visitHistory track by $index">
+                    <div class="list-item__center list-item--material__center">
+                        <div class="list-item__title list-item--material__title">
+                            <span ng-if="p.finish">完成</span>
+                            <span ng-if="!p.finish">未完成</span>
+                        </div>
+                        <div class="list-item__subtitle list-item--material__subtitle">{{p.checkInTime}}-{{p.lastCheckInTime}}</div>
+                    </div>
+                </li>
+
+            </ul>
 
 
         </div>

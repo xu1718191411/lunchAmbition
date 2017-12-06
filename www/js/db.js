@@ -48,7 +48,7 @@ var myDB = {
         for (var i in qualification) {
             title = i
             value = qualification[i]
-            tableData.equalTo(title, value)
+            tableData = tableData.equalTo(title, value)
         }
 
 

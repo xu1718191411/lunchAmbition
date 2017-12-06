@@ -54,6 +54,7 @@ module
         $scope.positions = [];
         $scope.selectedShop = {}
         $scope.detailShop = {}
+        $scope.visitHistory = []
         $scope.ifShowDeail = false;
         var geocoder = new google.maps.Geocoder();
         vm.geocoder = geocoder;
@@ -84,6 +85,7 @@ module
         $scope.goToDetail = function(p) {
             $scope.ifShowDeail = true;
             requireForDetail(p.place_id)
+            requireForVisitHistory(p.place_id)
         }
 
         $scope.backToList = function() {
@@ -109,13 +111,13 @@ module
                         checkInShop.lastCheckTime = Date.parse(new Date()) / 1000
                         checkInShop.lat = p.geometry.location.lat()
                         checkInShop.lng = p.geometry.location.lng()
-                      
-                        checkInTime = Date.parse(new Date())/1000
-                        myDB.insertIntoDataBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},function(err,res){
-                            if(err == null){
+
+                        checkInTime = Date.parse(new Date()) / 1000
+                        myDB.insertIntoDataBase("CheckInHistory", { memberId: MEMBER_ID, shopId: p.place_id, checkInTime: checkInTime }, function(err, res) {
+                            if (err == null) {
 
                                 startCheckIng(p)
-                            }   
+                            }
                         })
 
                     }
@@ -213,6 +215,15 @@ module
         }
 
 
+        function requireForVisitHistory(place_id) {
+            myDB.findAllData("CheckInHistory", { memberId: MEMBER_ID, shopId: place_id }, function(err, res) {
+                $scope.$apply(function() {
+                    $scope.visitHistory = res;
+                })
+            })
+        }
+
+
         function allowCurrentLocation(map) {
             var infoWindow = new google.maps.InfoWindow({ map: map });
 
@@ -225,7 +236,7 @@ module
                             lng: position.coords.longitude
                         };
                         $scope.centerPos = pos;
-                        $scope.centerPosition = [pos.lat,pos.lng]
+                        $scope.centerPosition = [pos.lat, pos.lng]
 
                         //infoWindow.setPosition(pos);
                         //infoWindow.setContent('現在地');
@@ -278,7 +289,7 @@ module
                         console.log(checkInShop)
                         if (checkInShop.lastCheckTime - checkInShop.checkInTime < qualificationLeastTime) {
 
-                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())/1000},function(err,res){
+                            myDB.updateInfoDateBase("CheckInHistory", { memberId: MEMBER_ID, shopId: p.place_id, checkInTime: checkInTime }, { "lastCheckInTime": Date.parse(new Date()) / 1000 }, function(err, res) {
                                 $timeout(function() {
                                     startCheckIng(p)
                                 }, 1000)
@@ -288,17 +299,18 @@ module
 
                         } else {
 
-                            myDB.updateInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},{"lastCheckInTime":Date.parse(new Date())/1000,"finish":true},function(err,res){
-                                if(err == null){
+                            myDB.updateInfoDateBase("CheckInHistory", { memberId: MEMBER_ID, shopId: p.place_id, checkInTime: checkInTime }, { "lastCheckInTime": Date.parse(new Date()) / 1000, "finish": true }, function(err, res) {
+                                if (err == null) {
+                                    requireForVisitHistory(p.place_id)
                                     alert("it is good")
                                 }
                             })
 
                         }
-                    }else{
+                    } else {
                         //leave away from the shop so this record should be set invalid
-                        myDB.deleteInfoDateBase("CheckInHistory",{memberId:MEMBER_ID,shopId:p.place_id,checkInTime:checkInTime},function(err,res){
-                            if(err == null){
+                        myDB.deleteInfoDateBase("CheckInHistory", { memberId: MEMBER_ID, shopId: p.place_id, checkInTime: checkInTime }, function(err, res) {
+                            if (err == null) {
                                 alert("leave the area this record should be removed")
                             }
                         })
@@ -309,7 +321,7 @@ module
 
         }
 
-    
+
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
@@ -327,7 +339,7 @@ module
                     };
                     $scope.centerPos = pos;
                     vm.map.setCenter(pos);
-                    $scope.centerPosition = [pos.lat,pos.lng]
+                    $scope.centerPosition = [pos.lat, pos.lng]
                     cb(0, pos)
                 }, function() {
                     cb(1, { msg: "error" })
