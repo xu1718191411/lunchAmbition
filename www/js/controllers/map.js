@@ -36,7 +36,9 @@ module
 module
     .controller('GoogleMapController', function($scope, $timeout, NgMap) {
         $scope.name = "syoui"
+        $scope.currentUser = myDB.getCurrentUser()
 
+        MEMBER_ID = $scope.currentUser.memberId
         var qualificationLeastTime = 10;
         var qualificationLeastDistance = 1500
         var checkInShop = {
