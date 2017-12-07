@@ -11,7 +11,7 @@ var myDB = {
         for (var i in qualification) {
             var title = i
             var value = qualification[i]
-            tableData.equalTo(title, value)
+            tableData = tableData.equalTo(title, value)
             console.log("title:" + title)
             console.log("value:" + value)
         }

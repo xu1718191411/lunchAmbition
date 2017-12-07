@@ -3,7 +3,7 @@
     <div id="wrap" ng-show="!isDetailShow">
         <div ng-repeat="p in lunch.list track by $index">
             <div class="list_border"></div>
-            <ul ng-click="showDetail()" class="listBox">
+            <ul ng-click="showDetail(p.ShopID,p.FormattedAddress)" class="listBox">
                 <li>
                     <div class="list_Photo"><img src="img/list/photo_sample.jpg" width="115px" height="115px"></div>
                 </li>
@@ -21,8 +21,9 @@
     </div>
 
     <div id="restinfoBox" ng-show="isDetailShow">
+{{shopDetail}}
         <h2>お店の名前</h2>
-            <p><img src="img/restaurantinfo/itallian.jpg" alt="和食"/></p>
+            <p><img src="{{shopDetail.PicPath}}"/></p>
             <dl>
                 <dt>ジャンル</dt>
                 <dd>和食</dd>
@@ -33,7 +34,7 @@
             </dl>
             <dl>
                 <dt>住所</dt>
-                <dd>愛知県名古屋市中村区名駅3-11-15</dd>
+                <dd>{{shopDetail.address}}</dd>
             </dl>
             <dl>
                 <dt>アクセス</dt>
@@ -45,18 +46,18 @@
             </dl>
             <dl>
                 <dt>評判</dt>
-                <dd>良い</dd>
+                <dd>
+                    {{shopDetail.Hyoban}}
+                </dd>
             </dl>
             <dl>
                 <dt>ポイント</dt>
-                <dd>席が多い</dd>
+                <dd>{{shopDetail.Description}}</dd>
             </dl>
             <dl>
-                <dt></dt>
-                <dd>コメントが入ります。コメントが入ります。美味しいイタリアンだよ。こめこめこめ。てきすとてきすとてきすと。
-                </dd>
+                <dt>コメント</dt>
+                <dd>{{shopDetail.comment}}</dd>
             </dl>
         </div>
-
 
 </ons-page>
