@@ -1,15 +1,13 @@
-<html>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="css/list.css">
-</head>
 <ons-page id="listPage" ng-controller="LISTController">
     <div id="wrap" ng-show="!isDetailShow">
         <div ng-repeat="p in lunch.list track by $index">
             <div class="list_border"></div>
-            <ul ng-click="showDetail()">
-                <li class="clear">
+            <ul ng-click="showDetail()" class="listBox">
+                <li>
                     <div class="list_Photo"><img src="img/list/photo_sample.jpg" width="115px" height="115px"></div>
+                </li>
+                <li>
                     <div class="rightBox">
                         <div class="list_station">{{p.Station}}</div>
                         <div class="list_Genre">{{p.Genre}}</div>
@@ -45,9 +43,20 @@
                 <dt>営業時間</dt>
                 <dd>ランチ　11:30～14:30（L.O.14:00</dd>
             </dl>
+            <dl>
+                <dt>評判</dt>
+                <dd>良い</dd>
+            </dl>
+            <dl>
+                <dt>ポイント</dt>
+                <dd>席が多い</dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd>コメントが入ります。コメントが入ります。美味しいイタリアンだよ。こめこめこめ。てきすとてきすとてきすと。
+                </dd>
+            </dl>
         </div>
 
 
 </ons-page>
-
-</html>

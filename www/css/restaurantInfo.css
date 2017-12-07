@@ -1,4 +1,4 @@
-h1,h2,div,dl,dt,dd{
+h1,h2,div,dl,dt,dd,ul,li{
     margin: 0;
     padding: 0;
 }
@@ -36,4 +36,21 @@ h1,h2,div,dl,dt,dd{
     padding: 12px;
     border-bottom: 1px solid #fff;
     color: #333333;
+}
+
+#restinfoBox img{
+    width: 100%;
+}
+
+ul li{
+    list-style: none;
+}
+
+.listBox{
+    display: flex;
+    border-bottom: 1px dotted #666666;
+    padding: 15px;
+}
+.rightBox{
+    margin-left: 10px;
 }
