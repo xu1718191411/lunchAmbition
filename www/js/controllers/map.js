@@ -225,9 +225,9 @@ module
             })
         }
 
-        function accumulatePoint(historyID){
-            myDB.insertIntoDataBase("GetPointList",{MemberID:MEMBER_ID,GetPoint:10,historyID:historyID},function(err,res){
-                if(err == null){
+        function accumulatePoint(historyID) {
+            myDB.insertIntoDataBase("GetPointList", { MemberID: MEMBER_ID, GetPoint: 10, historyID: historyID }, function(err, res) {
+                if (err == null) {
                     alert("10 point")
                 }
             })
