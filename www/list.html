@@ -1,9 +1,8 @@
-
 <ons-page id="listPage" ng-controller="LISTController">
     <div id="wrap" ng-show="!isDetailShow">
         <div ng-repeat="p in lunch.list track by $index">
             <div class="list_border"></div>
-            <ul ng-click="showDetail(p.ShopID,p.FormattedAddress)" class="listBox">
+            <ul ng-click="showDetail(p.PlaceID,p.FormattedAddress)" class="listBox">
                 <li>
                     <div class="list_Photo"><img src="img/list/photo_sample.jpg" width="115px" height="115px"></div>
                 </li>
@@ -21,43 +20,43 @@
     </div>
 
     <div id="restinfoBox" ng-show="isDetailShow">
-{{shopDetail}}
+        {{shopDetail}}
         <h2>お店の名前</h2>
-            <p><img src="{{shopDetail.PicPath}}"/></p>
-            <dl>
-                <dt>ジャンル</dt>
-                <dd>和食</dd>
-            </dl>
-            <dl>
-                <dt>平均予算</dt>
-                <dd>880円〜</dd>
-            </dl>
-            <dl>
-                <dt>住所</dt>
-                <dd>{{shopDetail.address}}</dd>
-            </dl>
-            <dl>
-                <dt>アクセス</dt>
-                <dd>JR・名鉄・近鉄・地下鉄東山線/桜通線　名古屋駅徒歩３分地下街ユニモール２番出口北に上る国際センター駅から382m</dd>
-            </dl>
-            <dl>
-                <dt>営業時間</dt>
-                <dd>ランチ　11:30～14:30（L.O.14:00</dd>
-            </dl>
-            <dl>
-                <dt>評判</dt>
-                <dd>
-                    {{shopDetail.Hyoban}}
-                </dd>
-            </dl>
-            <dl>
-                <dt>ポイント</dt>
-                <dd>{{shopDetail.Description}}</dd>
-            </dl>
-            <dl>
-                <dt>コメント</dt>
-                <dd>{{shopDetail.comment}}</dd>
-            </dl>
-        </div>
+        <p><img src="{{shopDetail.PicPath}}" /></p>
+        <dl>
+            <dt>ジャンル</dt>
+            <dd>和食</dd>
+        </dl>
+        <dl>
+            <dt>平均予算</dt>
+            <dd>880円〜</dd>
+        </dl>
+        <dl>
+            <dt>住所</dt>
+            <dd>{{shopDetail.address}}</dd>
+        </dl>
+        <dl>
+            <dt>アクセス</dt>
+            <dd>JR・名鉄・近鉄・地下鉄東山線/桜通線　名古屋駅徒歩３分地下街ユニモール２番出口北に上る国際センター駅から382m</dd>
+        </dl>
+        <dl>
+            <dt>営業時間</dt>
+            <dd>ランチ　11:30～14:30（L.O.14:00</dd>
+        </dl>
+        <dl>
+            <dt>評判</dt>
+            <dd>
+                {{shopDetail.Hyoban}}
+            </dd>
+        </dl>
+        <dl>
+            <dt>ポイント</dt>
+            <dd>{{shopDetail.Description}}</dd>
+        </dl>
+        <dl>
+            <dt>コメント</dt>
+            <dd>{{shopDetail.comment}}</dd>
+        </dl>
+    </div>
 
 </ons-page>
