@@ -1,15 +1,29 @@
 <ons-page id="TeamPage" ng-controller="TeamController">
     <h1>TeamPage</h1>
-    <ul class="list">
-        <li class="list_item list_item--Point" ng-repeat="p in lunch.GetPoint  track by $index">
-            <div class="list_item_left list_item--Point_left">
-                <img class="list_item_thumbnail list_item--Point_thumbnail" src="..\img\teamPage\No1.jpg" alt="Cute kitten">
-            </div>
 
-            <div class="list_item_center list_item--Point_center"></div>
-            <div class="list_item_center list_item--Point_center">No{{p.MemberID}}</div>
-            <div class="list_item_center list_item--Point_center">ID:{{p.objectId}}</div>
-            <div class="list_item_center list_item--Point_center">point:{{p.GetPoint}}</div>
-        </li>
-    </ul>
+    {{HighPointUser}}
+
+
+    <div id="wrap">
+        <div ng-repeat="p in HighPointUser track by $index">
+            <div class="list_border"></div>
+
+            <ul ng-click="showDetail(p.PlaceID,p.FormattedAddress,p.ShopName,p.Genre,p.access)" class="listBox">
+
+                <li>
+                    <div class="list_Photo"><img src="{{p.PicPath}}" width="115px" height="115px"></div>
+                </li>
+                <li>
+                    <div class="rightBox">
+                        <div class="list_station">{{p.MemberID}}</div>
+                        <div class="list_Genre">{{p.GetPoint}}</div>
+                        <div class="list_Shopname">{{p.TeamName}}</div>
+                        <div class="list_price">{{p.createDate}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
 </ons-page>

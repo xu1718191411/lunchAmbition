@@ -1,42 +1,71 @@
 module.controller('TeamController', function($scope) {
-    $scope.name = "MIYAMOTO"
-    $scope.lunch = {};
-    $scope.lunch.HighPointUser = [];
+    $scope.HighPointUser = [];
     getHighPoint()
 
     function getHighPoint() {
-        var PointList = ncmb.DataStore("GetPointList");
-        PointList.fetchAll()
-            .then(function(result) {
+        myDB.findAllData("GetPointList", {}, function(err, results) {
+            if (err) {
+                console.log("error happened when execute GetPointList")
+                console.log(err)
+                return;
+            }
+            for (var i = 0; i < results.length; i++) {
+                var MemberID = results[i].MemberID;
 
-                for (var i = 0; i < result.length; i++) {
-                    var MemberID = result[i].MemberID;
-                    console.log("TGGGGGGGGG:" + MemberID)
-                        (function(_i) {
-                            console.log("TGGGGGGGGG:1")
-                            myDB.findAllData("MemberList", { MemberID: MemberID }, function(err, res) {
-                                console.log("TGGGGGGGGG:2")
-                                if (err) console.log(err)
-                                console.log("TGGGGGGGGG:3")
-                                console.log(res)
-                                if (Object.keys(res).length != 0) {
-                                    result[_i]["TeamID"] = res[0]["TeamID"]
-                                    console.log(result);
-                                }
-                            })
-                        })(i)
-                }
 
-                $scope.$apply(function() {
-                    $scope.lunch.GetPoint = result;
 
-                    $scope.name = "No1";
-                })
+                (function(_i) {
+                    myDB.findAllData("MemberList", { MemberID: MemberID }, function(err, res) {
+                        if (err) console.log(err)
 
-            })
-            .catch(function(err) {
+                        if (res == null) res = {}
+                        if (Object.keys(res).length != 0) {
+                            results[_i]["TeamID"] = res[0]["TeamID"]
+                            var teamID = res[0].TeamID;
+                            (function(__i) {
+                                myDB.findAllData("TeamList", { TeamID: teamID }, function(_err, _res) {
+                                    if (_err) console.log(_err)
 
-            });
+                                    if (Object.keys(_res).length != 0) {
 
+                                        results[__i]["TeamName"] = _res[0]["TeamName"]
+
+
+
+                                        $scope.$apply(function() {
+
+                                            // results.sort(function(a, b) {
+                                            //     return a.TeamID - b.TeamID
+                                            // })
+
+                                            $scope.HighPointUser = results;
+
+
+                                            $scope.HighPointUser.sort(function(a, b) {
+                                                return a.TeamID - b.TeamID
+                                            })
+
+                                        })
+
+
+
+                                    }
+                                })
+                            })(_i)
+
+                        }
+                    })
+                })(i)
+
+
+
+
+
+
+            }
+        })
     }
+
+
+
 })
